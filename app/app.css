@@ -7,9 +7,37 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  @media (prefers-color-scheme: light) {
+    color-scheme: white;
   }
+}
+
+input {
+  border: solid 1px #494949ff;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 10px;
+}
+
+.address {
+  margin-top: 10px;
 }
