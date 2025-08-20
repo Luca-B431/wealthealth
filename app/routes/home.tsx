@@ -1,7 +1,7 @@
-import states from "~/data/states";
 import type { Route } from "./+types/home";
 import { useEffect } from "react";
 import { Link } from "react-router";
+import Selector from "~/components/selector";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,17 +13,6 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   useEffect(() => {
     $(function () {
-      const stateSelect = document.getElementById("state");
-      states.forEach(function (state) {
-        const option = document.createElement("option");
-        option.value = state.abbreviation;
-        option.text = state.name;
-        stateSelect?.appendChild(option);
-      });
-
-      $("#department").selectmenu();
-      $("#state").selectmenu();
-
       $("#date-of-birth").datetimepicker({
         timepicker: false,
         format: "m/d/Y",
@@ -125,21 +114,13 @@ export default function Home() {
             <label htmlFor="city">City</label>
             <input id="city" type="text" name="city" />
 
-            <label htmlFor="state">State</label>
-            <select id="state" name="state"></select>
+            <Selector labelName="state" department="state" />
 
             <label htmlFor="zip-code">Zip Code</label>
             <input id="zip-code" type="number" name="zip-code" />
           </fieldset>
 
-          <label htmlFor="department">Department</label>
-          <select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
+          <Selector labelName="department" department="department" />
 
           <button
             type="submit"

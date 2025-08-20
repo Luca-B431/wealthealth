@@ -1,0 +1,9 @@
+const departments = [
+  { department: "Sales" },
+  { department: "Marketing" },
+  { department: "Engineering" },
+  { department: "Human Resources" },
+  { department: "Legal" },
+];
+
+export default departments;

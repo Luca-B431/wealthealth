@@ -1,6 +1,5 @@
 import * as React from "react";
 import type { Person } from "../types/person";
-import type { SortingState } from "@tanstack/react-table";
 
 import {
   createColumnHelper,
