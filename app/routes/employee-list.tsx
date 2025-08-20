@@ -1,6 +1,7 @@
 import Table from "~/components/table";
 import type { Route } from "./+types/employee-list";
 import { useEffect } from "react";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,10 +13,15 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
-      <div id="employee-div" className="container">
-        <h1>Current Employees</h1>
+      <div id="employee-div" className="container py-12">
+        <h1 className="text-xl font-bold">Current Employees</h1>
         <Table />
-        <a href="/">Home</a>
+        <Link
+          to="/"
+          className="inline-flex items-center p-4 mb-4 border-1 border-gray-300 rounded-lg shadow-md text-gray-700"
+        >
+          Home
+        </Link>
       </div>
     </>
   );

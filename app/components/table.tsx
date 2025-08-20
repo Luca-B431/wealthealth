@@ -6,7 +6,7 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -137,15 +137,12 @@ const columns = [
 
 export default function Table() {
   const [data, setData] = React.useState<any[]>([]);
-  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
-    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   // Accès au LS côté client, évite l'erreur SSR
@@ -161,8 +158,8 @@ export default function Table() {
   }, []);
 
   return (
-    <div className="p-2">
-      <table className="display dataTable">
+    <div className="pt-8 pb-16">
+      <table className="display dataTable border-1 p-8 mt-4 rounded-2xl shadow-md  border-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -179,16 +176,27 @@ export default function Table() {
             </tr>
           ))}
         </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-2">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+        <tbody className="pt-8">
+          {table.getRowModel().rows.length > 0 ? (
+            table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="p-2 h-16">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="text-center text-gray-500 h-16"
+              >
+                No employees registered
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

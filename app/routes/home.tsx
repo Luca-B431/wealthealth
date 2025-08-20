@@ -1,6 +1,7 @@
 import states from "~/data/states";
 import type { Route } from "./+types/home";
 import { useEffect } from "react";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -71,13 +72,38 @@ export default function Home() {
 
   return (
     <>
-      <div className="title">
-        <h1>HRnet</h1>
+      <div className="title py-4">
+        <h1 className="text-4xl font-bold">HRnet</h1>
       </div>
       <div className="container">
-        <a href="employee-list">View Current Employees</a>
-        <h2>Create Employee</h2>
-        <form action="#" id="create-employee" onSubmit={saveEmployee}>
+        <Link
+          to="employee-list"
+          className="inline-flex items-center p-4 mb-4 border-1 border-gray-300 rounded-lg shadow-md text-gray-700"
+        >
+          View Current Employees
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            className="ml-2"
+          >
+            <path
+              fill="#888f9aff"
+              fill-rule="evenodd"
+              d="M4.998 7.78C6.729 6.345 9.198 5 12 5s5.27 1.345 7.002 2.78a12.7 12.7 0 0 1 2.096 2.183c.253.344.465.682.618.997c.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997a12.7 12.7 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19s-5.27-1.345-7.002-2.78a12.7 12.7 0 0 1-2.096-2.183a6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.7 12.7 0 0 1 4.998 7.78M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </Link>
+
+        <form
+          action="#"
+          id="create-employee"
+          onSubmit={saveEmployee}
+          className="border-1 p-8 rounded-2xl shadow-md  border-gray-300"
+        >
+          <h2 className="text-xl font-bold ml-18">Create Employee</h2>
           <label htmlFor="first-name">First Name</label>
           <input type="text" id="first-name" name="first-name" />
 
@@ -91,7 +117,7 @@ export default function Home() {
           <input id="start-date" type="text" name="start-date" />
 
           <fieldset className="address">
-            <legend>Address</legend>
+            <legend className="text-lg font-bold">Address</legend>
 
             <label htmlFor="street">Street</label>
             <input id="street" type="text" name="street" />
@@ -115,7 +141,13 @@ export default function Home() {
             <option>Legal</option>
           </select>
 
-          <button type="submit"> Save</button>
+          <button
+            type="submit"
+            className="ml-4 bg-black text-white py-2 px-4 rounded"
+          >
+            {" "}
+            Save
+          </button>
         </form>
       </div>
       <div id="confirmation" className="modal">
