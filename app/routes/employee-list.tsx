@@ -1,5 +1,5 @@
-import states from "~/data/states";
-import type { Route } from "./+types/home";
+import Table from "~/components/table";
+import type { Route } from "./+types/employee-list";
 import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
@@ -10,32 +10,11 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  useEffect(() => {
-    $(function () {
-      const employees = JSON.parse(localStorage.getItem("employees"));
-
-      $("#employee-table").DataTable({
-        data: employees,
-        columns: [
-          { title: "First Name", data: "firstName" },
-          { title: "Last Name", data: "lastName" },
-          { title: "Start Date", data: "startDate" },
-          { title: "Department", data: "department" },
-          { title: "Date of Birth", data: "dateOfBirth" },
-          { title: "Street", data: "street" },
-          { title: "City", data: "city" },
-          { title: "State", data: "state" },
-          { title: "Zip Code", data: "zipCode" },
-        ],
-      });
-    });
-  }, []);
-
   return (
     <>
       <div id="employee-div" className="container">
         <h1>Current Employees</h1>
-        <table id="employee-table" className="display"></table>
+        <Table />
         <a href="/">Home</a>
       </div>
     </>
