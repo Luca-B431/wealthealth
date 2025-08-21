@@ -1,5 +1,6 @@
 packages:
   - front
+  - modules/*
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - esbuild

@@ -1,4 +1,5 @@
-import Table from "~/components/table";
+// import Table from "~/components/table";
+import Table from "@Luca-B431/wh-table";
 import type { Route } from "./+types/employee-list";
 import { useEffect } from "react";
 import { Link } from "react-router";
