@@ -1,7 +1,10 @@
 import type { Route } from "./+types/home";
-import { useEffect } from "react";
 import { Link } from "react-router";
-import Selector from "~/components/selector";
+import Select from "~/components/select";
+import states from "~/data/states";
+import departments from "~/data/departements";
+import Datetimepicker from "~/components/datetimepicker";
+import { useModal } from "~/components/modal";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,18 +14,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  useEffect(() => {
-    $(function () {
-      $("#date-of-birth").datetimepicker({
-        timepicker: false,
-        format: "m/d/Y",
-      });
-      $("#start-date").datetimepicker({
-        timepicker: false,
-        format: "m/d/Y",
-      });
-    });
-  }, []);
+  const confirmationModal = useModal({
+    id: "confirmation",
+    children: <> Employee created ! </>,
+  });
 
   function saveEmployee(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -56,7 +51,7 @@ export default function Home() {
     };
     employees.push(employee);
     localStorage.setItem("employees", JSON.stringify(employees));
-    $("#confirmation").modal();
+    confirmationModal.open();
   }
 
   return (
@@ -99,11 +94,9 @@ export default function Home() {
           <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" name="last-name" />
 
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" type="text" name="date-of-birth" />
+          <Datetimepicker label="Date of Birth" name="date-of-birth" />
 
-          <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" type="text" name="start-date" />
+          <Datetimepicker label="Start Date" name="start-date" />
 
           <fieldset className="address">
             <legend className="text-lg font-bold">Address</legend>
@@ -114,13 +107,25 @@ export default function Home() {
             <label htmlFor="city">City</label>
             <input id="city" type="text" name="city" />
 
-            <Selector labelName="state" department="state" />
+            <Select label="State" name="state">
+              {states.map((state) => (
+                <option key={state.abbreviation} value={state.abbreviation}>
+                  {state.name}
+                </option>
+              ))}
+            </Select>
 
             <label htmlFor="zip-code">Zip Code</label>
             <input id="zip-code" type="number" name="zip-code" />
           </fieldset>
 
-          <Selector labelName="department" department="department" />
+          <Select label="Department" name="department">
+            {departments.map((department) => (
+              <option key={department} value={department}>
+                {department}
+              </option>
+            ))}
+          </Select>
 
           <button
             type="submit"
@@ -131,9 +136,7 @@ export default function Home() {
           </button>
         </form>
       </div>
-      <div id="confirmation" className="modal">
-        Employee Created!
-      </div>
+      {confirmationModal.node}
     </>
   );
 }

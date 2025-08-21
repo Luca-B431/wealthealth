@@ -1,9 +1,9 @@
 const departments = [
-  { department: "Sales" },
-  { department: "Marketing" },
-  { department: "Engineering" },
-  { department: "Human Resources" },
-  { department: "Legal" },
+  "Sales",
+  "Marketing",
+  "Engineering",
+  "Human Resources",
+  "Legal",
 ];
 
 export default departments;
