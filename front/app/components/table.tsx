@@ -1,6 +1,3 @@
-import * as React from "react";
-import type { Person } from "../types/person";
-
 import {
   createColumnHelper,
   flexRender,
@@ -8,8 +5,10 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useEmployees } from "~/context";
+import type { Employee } from "~/types/person";
 
-const columnHelper = createColumnHelper<Person>();
+const columnHelper = createColumnHelper<Employee>();
 
 const columns = [
   columnHelper.accessor("firstName", {
@@ -135,30 +134,18 @@ const columns = [
 ];
 
 export default function Table() {
-  const [data, setData] = React.useState<any[]>([]);
+  const { employees } = useEmployees();
 
   const table = useReactTable({
-    data,
+    data: employees,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  // Accès au LS côté client, évite l'erreur SSR
-  React.useEffect(() => {
-    const employeesData = localStorage.getItem("employees");
-    if (employeesData) {
-      try {
-        setData(JSON.parse(employeesData));
-      } catch {
-        setData([]);
-      }
-    }
-  }, []);
-
   return (
     <div className="pt-8 pb-16">
-      <table className="display dataTable border-1 p-8 mt-4 rounded-2xl shadow-md  border-gray-300">
+      <table className="display dataTable border-1 p-8 mt-4 rounded-2xl shadow-md border-gray-300">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

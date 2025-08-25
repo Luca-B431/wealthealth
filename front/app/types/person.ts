@@ -1,4 +1,4 @@
-type Person = {
+type Employee = {
   firstName: string;
   lastName: string;
   startDate: string;
@@ -10,4 +10,4 @@ type Person = {
   zipCode: string;
 };
 
-export type { Person };
+export type { Employee };
